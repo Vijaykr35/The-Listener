@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Listener — Interactive Psychological Fiction</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Top Minimalist Global Navigation -->
+<header class="app-header">
+  <div class="header-inner">
+    <div class="brand">
+      <span class="brand-glyph">✦</span>
+      <span class="brand-title">THE LISTENER</span>
+      <span class="brand-divider">/</span>
+      <span class="brand-tag">Slice-of-Life Fiction</span>
+    </div>
+    <div class="header-status">
+      <div id="audioStatusBadge" class="status-pill active" title="Local neural TTS active">
+        <span class="pulse-dot"></span>
+        <span class="status-text">Neural Voice Engine</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- 1. LANDING & SETUP PORTAL -->
+<main id="start" class="portal-panel">
+  <div class="portal-hero">
+    <div class="hero-badge-wrap">
+      <span class="hero-badge">Interactive Psychological Fiction</span>
+      <span class="hero-subbadge">Multiple Realistic Endings</span>
+    </div>
+    <h1 class="hero-title">Every ordinary moment hides a choice.</h1>
+    <p class="hero-lede">An intimate literary story grounded in everyday life. Sit at your desk on a quiet afternoon and notice the small frictions, hesitations, and unsaid words between people. Your choices guide what the narrator notices and decides, shaping which ending unfolds. If you do not choose, the basic canonical story advances on its own.</p>
+  </div>
+
+  <div class="portal-cards-layout">
+    <!-- Story Length Selection Cards -->
+    <div class="config-card">
+      <div class="card-head">
+        <span class="card-icon">⏱️</span>
+        <div class="card-head-text">
+          <label class="card-title">Story Length</label>
+          <span class="card-sub">Select the narrative depth and duration</span>
+        </div>
+      </div>
+      
+      <div class="length-cards-grid" id="lengthCards">
+        <div class="length-option" data-val="short">
+          <div class="option-header">
+            <span class="option-name">Brief Vignette</span>
+            <span class="option-tag">3 min</span>
+          </div>
+          <span class="option-beats">9 narrative beats</span>
+          <p class="option-desc">Fast, focused character study with a sharp turning point.</p>
+        </div>
+
+        <div class="length-option active" data-val="standard">
+          <div class="option-header">
+            <span class="option-name">Standard Story</span>
+            <span class="option-tag recommended">Recommended</span>
+          </div>
+          <span class="option-beats">12 narrative beats · ~5 min</span>
+          <p class="option-desc">Rich character depth, subtle micro-actions, and gradual tension.</p>
+        </div>
+
+        <div class="length-option" data-val="long">
+          <div class="option-header">
+            <span class="option-name">Deep Observation</span>
+            <span class="option-tag">8 min</span>
+          </div>
+          <span class="option-beats">15 narrative beats</span>
+          <p class="option-desc">Slow-burn exploration with layered social subtext and reflections.</p>
+        </div>
+      </div>
+
+      <!-- Hidden select bound to JS -->
+      <select id="length" hidden>
+        <option value="short">Short</option>
+        <option value="standard" selected>Standard</option>
+        <option value="long">Deep</option>
+      </select>
+    </div>
+
+    <!-- Narrator & Audio Config Card -->
+    <div class="config-card">
+      <div class="card-head">
+        <span class="card-icon">🎙️</span>
+        <div class="card-head-text">
+          <label class="card-title">Narrator & Experience</label>
+          <span class="card-sub">In-memory neural synthesis with hardware clock sync</span>
+        </div>
+      </div>
+
+      <div class="voice-picker-box">
+        <div class="voice-profile">
+          <div class="voice-avatar">AL</div>
+          <div class="voice-meta">
+            <strong class="voice-name">Alan (Neural Narrator)</strong>
+            <span class="voice-detail">English GB · Hushed, intimate, realistic storytelling</span>
+          </div>
+        </div>
+        <button type="button" id="testVoiceBtn" class="btn-voice-preview" title="Listen to a voice sample">
+          <span class="play-icon">▶</span> Preview Voice
+        </button>
+      </div>
+
+      <select id="voiceSelect" hidden>
+        <option value="piper" selected>Alan</option>
+      </select>
+
+      <div class="toggles-group">
+        <label class="switch-row">
+          <div class="switch-meta">
+            <span class="switch-title">Read story aloud</span>
+            <span class="switch-desc">100% lockstep audio-to-text synchronized revelation</span>
+          </div>
+          <input type="checkbox" id="useVoice" checked class="custom-toggle">
+          <span class="toggle-track"></span>
+        </label>
+
+        <label class="switch-row">
+          <div class="switch-meta">
+            <span class="switch-title">Record story video</span>
+            <span class="switch-desc">Render and export your session as a downloadable .webm video</span>
+          </div>
+          <input type="checkbox" id="useRec" class="custom-toggle">
+          <span class="toggle-track"></span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="portal-footer">
+    <button id="begin" class="btn-start-story">
+      <span class="btn-text">Begin the Story</span>
+      <span class="btn-icon">→</span>
+    </button>
+    <div class="feature-pills">
+      <span class="pill">✦ 100% Local Neural Voice</span>
+      <span class="pill">✦ 4 Branching Endings</span>
+      <span class="pill">✦ Freeform User Input</span>
+      <span class="pill">✦ Auto-Advance Timer</span>
+    </div>
+  </div>
+</main>
+
+<!-- 2. INTERACTIVE STORY THEATER -->
+<section id="stage" class="theater-panel" hidden>
+  <div class="theater-wrap">
+
+    <!-- Top Navigation & Progress Header -->
+    <div class="theater-nav">
+      <div class="nav-left">
+        <span class="badge-chapter" id="storyPhase">Beat 1 of 12</span>
+        <span class="badge-time" id="storyTime">2:15 PM</span>
+      </div>
+
+      <div class="nav-center">
+        <div class="audio-wave-wrap" id="audioWaveWrap">
+          <span class="wave-bar"></span>
+          <span class="wave-bar"></span>
+          <span class="wave-bar"></span>
+          <span class="wave-bar"></span>
+          <span class="wave-bar"></span>
+        </div>
+        <span class="wave-status" id="waveStatus">Listening</span>
+      </div>
+
+      <div class="nav-right">
+        <!-- Quick realistic micro-actions that influence the narrator -->
+        <div class="quick-micro-actions">
+          <button type="button" id="btnFlame" class="micro-btn" title="Adjust the warm desk lamp">💡 Adjust Lamp</button>
+          <button type="button" id="btnChime" class="micro-btn" title="Tap the ceramic tea mug">☕ Sip Tea</button>
+          <button type="button" id="btnPetals" class="micro-btn" title="Glance toward the rainy window">🪟 Rain Check</button>
+        </div>
+        <button id="finish" type="button" class="btn-skip">Skip to Ending</button>
+      </div>
+    </div>
+
+    <!-- Atmospheric Visual Canvas (Subtle desk & rainy window scene) -->
+    <div class="canvas-box">
+      <canvas id="screen" width="1280" height="720"></canvas>
+      <div class="canvas-vignette"></div>
+    </div>
+
+    <!-- Literary Reading Flow Box (Large, crisp, high-contrast serif typography) -->
+    <div class="reading-theater" id="readingTheater">
+      <div class="reading-header">
+        <span class="act-indicator" id="beatBadge">ACT I · THE ORDINARY BEGINNING</span>
+      </div>
+      
+      <div class="prose-viewport" id="proseViewport">
+        <p id="proseCurrent" class="prose-paragraph">The story begins...</p>
+      </div>
+    </div>
+
+    <!-- Branching Choices Box (Interactive cards glide in below prose) -->
+    <div id="choiceBox" class="choices-container" hidden>
+      <div class="choices-header-bar">
+        <div class="choices-prompt-wrap">
+          <span class="prompt-glyph">✦</span>
+          <span id="choicePrompt" class="prompt-text">What do you do next?</span>
+        </div>
+        
+        <div class="timer-badge-container">
+          <span id="autoTimerBadge" class="timer-pill">Auto-advancing basic story in <b id="timerSec">10</b>s</span>
+          <button type="button" id="toggleTimerBtn" class="btn-timer-toggle">Pause</button>
+        </div>
+      </div>
+
+      <!-- Animated timer line -->
+      <div class="timer-progress-track">
+        <div id="choiceTimerProgress" class="timer-progress-fill"></div>
+      </div>
+
+      <!-- Branching Cards Grid -->
+      <div id="choiceCards" class="cards-interactive-grid"></div>
+
+      <!-- Freeform Action Input Form -->
+      <form id="actionForm" class="freeform-action-bar" autocomplete="off">
+        <div class="input-shell">
+          <span class="input-glyph">✎</span>
+          <input id="actionInput" type="text" maxlength="85" placeholder="Or type your own custom reaction, words, or action (Press Enter)..." aria-label="Custom action">
+          <button type="submit" class="btn-submit-action">Act</button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</section>
+
+<!-- 3. ENDING & CHRONICLE RESOLUTION -->
+<section id="result" class="result-panel" hidden>
+  <div class="result-wrap">
+    
+    <div class="result-banner">
+      <span class="kicker-tag">STORY RESOLUTION</span>
+      
+      <div class="ending-hero" id="endingCard">
+        <div class="ending-pill-row">
+          <span class="badge-ending-archetype" id="endingBadge">THE DIPLOMAT</span>
+          <span class="badge-ending-label">Psychological Ending</span>
+        </div>
+        <h2 id="endingTitle" class="hero-ending-title">The Quiet Distance</h2>
+        <p id="endingSubtitle" class="hero-ending-sub">Polite small talk preserved the peace, but the unsaid words remain between you.</p>
+        
+        <div class="resolution-quote-card">
+          <p id="endingBlurb" class="resolution-text">We cleared the mugs from the table in silence...</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="videoBox" class="recorded-video-box" hidden></div>
+
+    <div class="chronicle-layout">
+      <!-- Full Story Transcript -->
+      <div class="story-chronicle-col">
+        <div class="section-title-wrap">
+          <h3>The Complete Story</h3>
+          <span class="section-sub">Every beat as recorded in your session</span>
+        </div>
+        <div id="storyTranscript" class="transcript-scroll-card"></div>
+      </div>
+
+      <!-- Decision Path & Actions -->
+      <aside class="decisions-path-col">
+        <div class="section-title-wrap">
+          <h3>Your Decision Path</h3>
+          <span class="section-sub">Choices that influenced the outcome</span>
+        </div>
+        
+        <ul id="choicesTimeline" class="decisions-timeline-list"></ul>
+
+        <div class="result-button-actions">
+          <button id="again" class="btn-play-again" type="button">
+            <span class="btn-symbol">🔄</span>
+            <span>Play Again (Choose Differently)</span>
+          </button>
+          
+          <a id="dlStory" class="btn-download-txt" href="#" download="story-chronicle.txt">
+            <span class="btn-symbol">📥</span>
+            <span>Download Story Transcript (.txt)</span>
+          </a>
+        </div>
+      </aside>
+    </div>
+
+  </div>
+</section>
+
+<script src="app.js"></script>
+</body>
+</html>

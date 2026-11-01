@@ -1,0 +1,12 @@
+# Core (required)
+fastapi>=0.110
+uvicorn>=0.29
+
+# Narration voice (recommended): open-source neural TTS, runs offline on CPU
+piper-tts>=1.2
+
+# Understand what you actually say (optional): open-weight Whisper
+# faster-whisper>=1.0
+
+# The story model is NOT a Python dependency: install Ollama (https://ollama.com)
+# and run:  ollama pull llama3.2:3b

@@ -1,0 +1,11 @@
+[project]
+name = "ghost-story-video"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "fastapi>=0.110",
+    "piper-tts>=1.2",
+    "uvicorn>=0.29",
+]
